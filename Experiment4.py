@@ -8,12 +8,10 @@ timeout= int(input("Timeout in seconds:"))
 def send_frame(frame_number):
     print(f"Sending frame {frame_number}")
     return random.choice([True, False])  # Simulate a frame loss (False) or success (True)
-
 # Simulate receiving an ACK
 def receive_ack(expected_frame):
     time.sleep(1)  # Simulate delay
     return random.choice([expected_frame, None])  # Simulate ACK loss (None) or success (expected_frame)
-
 # Go-Back-N ARQ simulation
 def go_back_n_arq():
     base = 0  # First frame in the window
@@ -27,13 +25,12 @@ def go_back_n_arq():
             else:
                 print(f"Frame {next_frame_to_send} lost.")
             next_frame_to_send += 1
-
         ack = receive_ack(base)
         if ack is not None:
             print(f"Received ACK for frame {ack}")
             base = ack + 1
         else:
             print("ACK lost or timeout occurred, resending from base frame")
-            next_frame_to_send = base  # Go back to the base frame and resend
+            # next_frame_to_send = base  # Go back to the base frame and resend
 if __name__ == "__main__":
     go_back_n_arq()
